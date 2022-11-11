@@ -1,0 +1,6 @@
+#
+# This file is parsed by pam_env module
+#
+# Syntax: simple "KEY=VAL" pairs on separate lines
+#
+export XCURSOR_SIZE=24

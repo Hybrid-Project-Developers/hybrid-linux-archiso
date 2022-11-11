@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+nvidia_check_arch(){
+    if [[ $(lspci | grep VGA | sed -rn 's/.*(NVIDIA).*/\1/p') ]]; then
+        nvidia_series(){
+            # Nvidia Chip Arch List
+            Tesla1=(G[0-9]*)
+            Tesla2=(GT[0-9]*)
+            Tesla3=(MCP[0-9]*)
+            Fermi=(GF[0-9]*)
+            Kepler=(GK[0-9]*)
+            Maxwell=(GM[0-9]*)
+            Pascal=(GP[0-9]*)
+            Volta=(GV[0-9]*)
+            Turing=(TU[0-9]*)
+            Ampere=(GA[0-9]*)
+            
+            # Check Arch
+            [[ $(lspci | grep VGA | sed -rn 's/.*(G[0-9]*).*/\1/p') == $Tesla1 ]] && nv_arch=Tesla
+            [[ $(lspci | grep VGA | sed -rn 's/.*(GT[0-9]*).*/\1/p') == $Tesla2 ]] && nv_arch=Tesla
+            [[ $(lspci | grep VGA | sed -rn 's/.*(MCP[0-9]*).*/\1/p') == $Tesla3 ]] && nv_arch=Tesla
+            [[ $(lspci | grep VGA | sed -rn 's/.*(GF[0-9]*).*/\1/p') == $Fermi ]] && nv_arch=Fermi
+            [[ $(lspci | grep VGA | sed -rn 's/.*(GK[0-9]*).*/\1/p') == $Kepler ]] && nv_arch=Kepler
+            [[ $(lspci | grep VGA | sed -rn 's/.*(GM[0-9]*).*/\1/p') == $Maxwell ]] && nv_arch=Maxwell
+            [[ $(lspci | grep VGA | sed -rn 's/.*(GP[0-9]*).*/\1/p') == $Pascal ]] && nv_arch=Pascal
+            [[ $(lspci | grep VGA | sed -rn 's/.*(GV[0-9]*).*/\1/p') == $Volta ]] && nv_arch=Volta
+            [[ $(lspci | grep VGA | sed -rn 's/.*(TU[0-9]*).*/\1/p') == $Turing ]] && nv_arch=Turing
+            [[ $(lspci | grep VGA | sed -rn 's/.*(GA[0-9]*).*/\1/p') == $Ampere ]] && nv_arch=Amper
+        }
+        nvidia_series
+    fi
+}
+
+nvidia_check_arch
+
+if [[ $nv_arch == Fermi ]]; then
+    mhwd -a pci nonfree nvidia-390xx
+    echo "blacklist nouveau" > /usr/lib/modprobe.d/nouveau-blacklist.conf
+    pacman -Sy nvidia-tweaks
+    elif [[ $nv_arch == Kepler ]]; then
+    mhwd -a pci nonfree nvidia-470xx
+    echo "blacklist nouveau" > /usr/lib/modprobe.d/nouveau-blacklist.conf
+    pacman -Sy nvidia-tweaks
+    elif [[ $nv_arch == Maxwell || $nv_arch == Pascal || $nv_arch == Volta || $nv_arch == Turing || $nv_arch == Ampere ]]; then
+    mhwd -a pci nonfree nvidia
+    echo "blacklist nouveau" > /usr/lib/modprobe.d/nouveau-blacklist.conf
+    pacman -Sy nvidia-tweaks
+fi

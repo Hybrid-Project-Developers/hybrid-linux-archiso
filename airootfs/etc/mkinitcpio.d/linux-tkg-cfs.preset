@@ -1,0 +1,8 @@
+# mkinitcpio preset file for the 'linux' package on archiso
+
+PRESETS=('archiso')
+
+ALL_kver='/boot/vmlinuz-linux-tkg-cfs'
+ALL_config='/etc/mkinitcpio.conf'
+
+archiso_image="/boot/initramfs-linux-tkg-cfs.img"
