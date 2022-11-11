@@ -1,0 +1,5 @@
+{
+  "image": "archlinux/archlinux",
+  "postAttachCommand": "echo ' ' >> /etc/pacman.conf && echo '[multilib]' >> /etc/pacman.conf && echo 'Include = /etc/pacman.d/mirrorlist' >> /etc/pacman.conf && pacman -Syy git archiso micro bash",
+  "features": {}
+}
