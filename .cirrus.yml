@@ -8,7 +8,6 @@ mkarchiso_task:
     - echo ' ' >> /etc/pacman.conf
     - echo '[multilib]' >> /etc/pacman.conf
     - echo 'Include = /etc/pacman.d/mirrorlist' >> /etc/pacman.conf
-    - pacman -Sy xdotool
     - echo | pacman-key --recv-key FBA220DFC880C036 --keyserver keyserver.ubuntu.com
     - pacman-key --lsign-key FBA220DFC880C036
     - pacman -U --noconfirm 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst' 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst'
@@ -42,10 +41,10 @@ mkarchiso_task:
     # HL-Soft
     - echo '[hl-soft]' >> /etc/pacman.conf
     - echo 'Include = /etc/pacman.d/hybrid-mirrorlist' >> /etc/pacman.conf
-    - pacman -Syy git archiso micro bash
+    - pacman -Syy --noconfirm git archiso micro bash
     
   prepare_checkout_script:
     - git clone https://github.com/Hybrid-Project-Developers/hybrid-linux-archiso
-    - mkarchiso -v -w /hybrid-work-dir -o /hybrid-iso-out /hybrid-linux-archiso
+    - su user -c "mkarchiso -v -w /hybrid-work-dir -o /hybrid-iso-out /hybrid-linux-archiso"
     
     
