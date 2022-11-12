@@ -1,0 +1,5 @@
+test_task:
+  container:
+    image: archlinux:latest
+  test_script:
+    - echo "Test script"
