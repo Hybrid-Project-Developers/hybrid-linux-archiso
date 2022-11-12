@@ -1,5 +1,50 @@
-test_task:
+mkarchiso_task:
   container:
+    cpu: 8
+    memory: 16G
     image: archlinux:latest
-  test_script:
-    - echo "Test script"
+  prepare_mkarchiso_script:
+    - pacman-key --init
+    - echo ' ' >> /etc/pacman.conf
+    - echo '[multilib]' >> /etc/pacman.conf
+    - echo 'Include = /etc/pacman.d/mirrorlist' >> /etc/pacman.conf
+    - pacman-key --recv-key FBA220DFC880C036 --keyserver keyserver.ubuntu.com
+    - pacman-key --lsign-key FBA220DFC880C036
+    - pacman -U --noconfirm 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst' 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst'
+    - echo ' ' >> /etc/pacman.conf
+    - echo '[chaotic-aur]' >> /etc/pacman.conf
+    - echo 'Include = /etc/pacman.d/chaotic-mirrorlist' >> /etc/pacman.conf
+    - sh -c 'useradd user -G wheel && echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers'
+    - chown user -R ..
+    - chown user -R /tmp
+    # Hybrid Linux Repo Mirrorlist
+    - echo "Server = https://osdn.net/projects/hybridlinux/storage/$repo/x86_64/" >> /etc/pacman.d/hybrid-mirrorlist
+    - echo "Server = https://sourceforge.net/projects/hybridlinux/files/Repo/$repo/x86_64/" >> /etc/pacman.d/hybrid-mirrorlist
+    # HL-Additions Repo
+    - echo '[hl-additions]' >> /etc/pacman.conf
+    - echo 'Include = /etc/pacman.d/hybrid-mirrorlist' >> /etc/pacman.conf
+    # HL-Core
+    - echo '[hl-core]' >> /etc/pacman.conf
+    - echo 'Include = /etc/pacman.d/hybrid-mirrorlist' >> /etc/pacman.conf
+    # HL-Drivers
+    - echo '[hl-drivers]' >> /etc/pacman.conf
+    - echo 'Include = /etc/pacman.d/hybrid-mirrorlist' >> /etc/pacman.conf
+    # HL-Firmware
+    - echo '[hl-firmware]' >> /etc/pacman.conf
+    - echo 'Include = /etc/pacman.d/hybrid-mirrorlist' >> /etc/pacman.conf
+    # HL-Kernel
+    - echo '[hl-kernel]' >> /etc/pacman.conf
+    - echo 'Include = /etc/pacman.d/hybrid-mirrorlist' >> /etc/pacman.conf
+    # HL-Multilib
+    - echo '[hl-multilib]' >> /etc/pacman.conf
+    - echo 'Include = /etc/pacman.d/hybrid-mirrorlist' >> /etc/pacman.conf
+    # HL-Soft
+    - echo '[hl-soft]' >> /etc/pacman.conf
+    - echo 'Include = /etc/pacman.d/hybrid-mirrorlist' >> /etc/pacman.conf
+    - pacman -Syy git archiso micro bash
+    
+  prepare_checkout_script:
+    - git clone https://github.com/Hybrid-Project-Developers/hybrid-linux-archiso
+    - mkarchiso -v -w /hybrid-work-dir -o /hybrid-iso-out /hybrid-linux-archiso
+    
+    
