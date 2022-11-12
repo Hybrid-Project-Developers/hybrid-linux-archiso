@@ -152,40 +152,21 @@ libva-utils
 libva-intel-driver
 intel-media-driver
 
-# Gnome packages
-baobab
-cheese
-eog
-evince
-file-roller
-gdm-prime
-gedit
-gnome-backgrounds
-gnome-backgrounds
-gnome-color-manager
-gnome-control-center-vrr
-gnome-disk-utility
-gnome-keyring
-gnome-menus
-gnome-session
-gnome-settings-daemon
-gnome-shell
-gnome-shell-extensions
-gnome-system-monitor
+# xfce4 packages
+xfce4
+xfce4-goodies
+sddm
+kvantum
+qt5ct
+plank
+gparted
 gnome-terminal
-gnome-video-effects
-grilo-plugins
-gvfs
-malcontent
-mutter-x11-scaling
-nautilus
-sushi
-tracker3-miners
-xdg-user-dirs-gtk
-gthumb
-gnome-browser-connector
-adwaita-qt5
-adwaita-qt6
+
+# Theme
+nordic-darker-theme
+sddm-nordic-theme-git
+kvantum-theme-nordic-git
+
 
 # BlueZ
 bluez-utils
