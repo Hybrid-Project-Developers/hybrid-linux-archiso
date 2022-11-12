@@ -8,13 +8,13 @@
 #=================================================================================
 
 
-cd airootfs/etc/systemd/system/
+cd airootfs/etc/systemd/system/ || exit
 tput setaf 2
 echo "Enabling SDDM and Graphical Target.."
 tput sgr0
 ln -sv /usr/lib/systemd/system/graphical.target default.target
 
-ln -sv /usr/lib/systemd/system/gdm.service display-manager.service
+ln -sv /usr/lib/systemd/system/sddm.service display-manager.service
 
 tput setaf 2
 echo "Enabling Network Manager..."
