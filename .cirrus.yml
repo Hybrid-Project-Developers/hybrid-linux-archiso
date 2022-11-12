@@ -17,34 +17,40 @@ mkarchiso_task:
     - echo 'Include = /etc/pacman.d/chaotic-mirrorlist' >> /etc/pacman.conf
     
     # Hybrid Linux Repo Mirrorlist
-    - echo "Server = https://osdn.net/projects/hybridlinux/storage/$repo/x86_64/" >> /etc/pacman.d/hybrid-mirrorlist
-    - echo "Server = https://sourceforge.net/projects/hybridlinux/files/Repo/$repo/x86_64/" >> /etc/pacman.d/hybrid-mirrorlist
+    - pacman -U 'https://osdn.net/projects/hybridlinux/storage/hl-core/x86_64/hybrid-mirrorlist-20220920-1-x86_64.pkg.tar.zst'
     
     # HL-Additions Repo
+    - echo ' ' >> /etc/pacman.conf
     - echo '[hl-additions]' >> /etc/pacman.conf
     - echo 'Include = /etc/pacman.d/hybrid-mirrorlist' >> /etc/pacman.conf
     
     # HL-Core
+    - echo ' ' >> /etc/pacman.conf
     - echo '[hl-core]' >> /etc/pacman.conf
     - echo 'Include = /etc/pacman.d/hybrid-mirrorlist' >> /etc/pacman.conf
     
     # HL-Drivers
+    - echo ' ' >> /etc/pacman.conf
     - echo '[hl-drivers]' >> /etc/pacman.conf
     - echo 'Include = /etc/pacman.d/hybrid-mirrorlist' >> /etc/pacman.conf
     
     # HL-Firmware
+    - echo ' ' >> /etc/pacman.conf
     - echo '[hl-firmware]' >> /etc/pacman.conf
     - echo 'Include = /etc/pacman.d/hybrid-mirrorlist' >> /etc/pacman.conf
     
     # HL-Kernel
+    - echo ' ' >> /etc/pacman.conf
     - echo '[hl-kernel]' >> /etc/pacman.conf
     - echo 'Include = /etc/pacman.d/hybrid-mirrorlist' >> /etc/pacman.conf
     
     # HL-Multilib
+    - echo ' ' >> /etc/pacman.conf
     - echo '[hl-multilib]' >> /etc/pacman.conf
     - echo 'Include = /etc/pacman.d/hybrid-mirrorlist' >> /etc/pacman.conf
     
     # HL-Soft
+    - echo ' ' >> /etc/pacman.conf
     - echo '[hl-soft]' >> /etc/pacman.conf
     - echo 'Include = /etc/pacman.d/hybrid-mirrorlist' >> /etc/pacman.conf
     
