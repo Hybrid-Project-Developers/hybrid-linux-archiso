@@ -126,8 +126,8 @@ chaotic-keyring
 chaotic-mirrorlist
 
 # TKG
-linux-tkg-cfs-hybrid
-linux-tkg-cfs-hybrid-headers
+linux-hybrid
+linux-hybrid-headers
 mesa-tkg-git
 lib32-mesa-tkg-git
 mesa-utils
